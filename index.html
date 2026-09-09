@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CONNECTX | Cooperative Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="auth-choice.css">
+  <link rel="stylesheet" href="booking-actions.css">
+  <link rel="stylesheet" href="yoyo-location.css">
+  <link rel="stylesheet" href="booking-location.css">
+  <link rel="stylesheet" href="yoyo-bee.css">
+  <link rel="stylesheet" href="yoyo-round.css">
+  <link rel="stylesheet" href="brand-location.css">
+  <link rel="stylesheet" href="brand-live.css">
+  <link rel="stylesheet" href="live-map-layout.css">
+  <link rel="stylesheet" href="home-button.css">
+  <link rel="stylesheet" href="new-request-icon.css">
+  <link rel="stylesheet" href="voice-input.css">
+</head>
+<body>
+  <div id="auth-gate" class="auth-gate">
+    <div class="auth-card">
+      <div class="auth-brand"><span class="brand-mark brand-graph" aria-hidden="true"><i></i><i></i><i></i></span><div><strong>CONNECTX</strong><small>COOPERATIVE SERVICES</small></div></div>
+      <p class="eyebrow">CUSTOMER ACCESS</p>
+      <h1 id="auth-title">Welcome to CONNECTX</h1>
+      <p id="auth-copy" class="auth-copy">Choose how you would like to continue.</p>
+      <div id="auth-choice" class="auth-choice"><button type="button" data-auth-choice="login">Login <span>→</span></button><button type="button" data-auth-choice="register">Register <span>→</span></button></div>
+      <form id="auth-form" class="hidden">
+        <label id="auth-name-field" class="auth-field registration-only hidden">Full name<input id="auth-name" autocomplete="name" placeholder="Your full name"></label>
+        <label class="registration-only hidden">Phone number<input id="auth-phone" type="tel" autocomplete="tel" placeholder="10-digit phone number"></label>
+        <label class="registration-only hidden">Aadhaar number<input id="auth-aadhaar" inputmode="numeric" pattern="[0-9]{12}" placeholder="12-digit Aadhaar number"></label>
+        <label class="worker-toggle registration-only hidden"><input id="auth-worker" type="checkbox"> I want to register as a service provider</label>
+        <div id="auth-worker-fields" class="hidden">
+          <p class="worker-fields-title">Worker payout and address details</p>
+          <label>UPI ID<input id="auth-upi" placeholder="name@upi"></label>
+          <div class="auth-two-col"><label>Bank account number<input id="auth-bank-account" inputmode="numeric"></label><label>IFSC code<input id="auth-ifsc" placeholder="ABCD0123456"></label></div>
+          <label>Permanent address<textarea id="auth-permanent-address" placeholder="Permanent address"></textarea></label>
+          <label>Residential address<textarea id="auth-residential-address" placeholder="Current residential address"></textarea></label>
+        </div>
+        <label>Email<input id="auth-email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+        <label>Password<input id="auth-password" type="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"></label>
+        <button id="forgot-link" type="button" class="forgot-link">Forgot password?</button>
+        <p id="auth-error" class="auth-error"></p>
+        <button class="primary-button" type="submit"><span id="auth-submit-label">Sign in</span><b>→</b></button>
+      </form>
+      <form id="forgot-form" class="hidden">
+        <label>Email<input id="forgot-email" type="email" required placeholder="The email on your account"></label>
+        <label id="new-password-field" class="hidden">New password<input id="new-password" type="password" minlength="8" placeholder="At least 8 characters"></label>
+        <p id="forgot-help" class="auth-help">We will create a short-lived reset link for this account.</p>
+        <p id="forgot-error" class="auth-error"></p>
+        <button class="primary-button" type="submit"><span id="forgot-submit-label">Send reset link</span><b>→</b></button>
+      </form>
+      <button id="auth-mode" class="auth-mode">← Back to Login / Register</button>
+      <p class="auth-note">Your account keeps bookings, addresses, and service updates together.</p>
+    </div>
+  </div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-row"><div class="brand"><span class="brand-mark brand-graph" aria-hidden="true"><i></i><i></i><i></i></span><span><strong>CONNECTX</strong><small>COOPERATIVE SERVICES</small></span></div><button class="home-button" type="button" data-screen="request" aria-label="Go to home">⌂</button></div>
+      <div class="side-label">REQUEST FLOW</div>
+      <button class="nav-item active" data-screen="request"><span>01</span> Tell us what you need</button>
+      <button class="nav-item" data-screen="matches"><span>02</span> Find a worker</button>
+      <button class="nav-item" data-screen="bookings"><span>03</span> My bookings</button>
+      <div class="sidebar-note"><strong>Fair work, close to home.</strong><p>Every worker is verified through their cooperative society.</p></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><p class="eyebrow">HOUSEHOLD SERVICE DESK</p><h1 id="page-title">Start with your need</h1></div><div class="user-chip"><span class="avatar" id="user-avatar">AK</span><span><strong id="user-name">Customer</strong><small>Customer account</small></span><button id="logout" class="logout-button">Log out</button></div></header>
+
+      <section id="request-screen" class="screen active-screen">
+        <div class="intro"><div><p class="eyebrow">NEW SERVICE REQUEST</p><h2>What would you like help with?</h2><p class="muted">Tell us the job, where it should happen, and a time that works for you.</p></div><div class="step-badge"><span>STEP 1</span><strong>Request details</strong></div></div>
+        <form id="request-form" class="request-layout">
+          <div class="form-panel">
+            <label class="need-label"><span class="need-label-heading">What do you need?<button id="voice-input" class="voice-input-button" type="button" title="Describe your need by voice" aria-label="Describe your need by voice">●</button></span><textarea id="need" required placeholder="Example: Fix a leaking kitchen tap and check the water line."></textarea><span id="voice-status" class="voice-status" aria-live="polite"></span></label>
+            <div class="quick-needs"><button type="button" data-need="Electrical repair">Electrical repair</button><button type="button" data-need="Plumbing">Plumbing</button><button type="button" data-need="Cleaning">Cleaning</button><button type="button" data-need="Carpentry">Carpentry</button><button type="button" data-need="Catering">Catering</button><button type="button" data-need="Car mechanic">Car mechanic</button><button type="button" data-need="Cook">Cook</button><button type="button" data-need="Doctor consultation">Doctor</button><button type="button" data-need="Nursing care">Nursing</button><button type="button" data-need="Luggage shifting">Luggage shifting</button><button type="button" data-need="Driver">Driver</button><button type="button" data-need="Gardening">Gardening</button><button type="button" data-need="Other service">Other service</button></div>
+            <div class="field-grid"><label>Preferred date<input id="date" type="date" required></label><label>Preferred time<select id="time" required><option value="">Choose a time</option><option>08:00 AM - 10:00 AM</option><option>10:00 AM - 12:00 PM</option><option>12:00 PM - 02:00 PM</option><option>02:00 PM - 04:00 PM</option><option>04:00 PM - 06:00 PM</option></select></label></div>
+            <label>Approver / contact name<input id="approver" required placeholder="Name of person available at the location"></label>
+            <label class="address-field">Service address<input id="address" required autocomplete="street-address" placeholder="Start typing your house, street, locality or city"><div id="address-suggestions" class="address-suggestions" role="listbox"></div></label>
+            <div class="location-row"><div><strong>Pin the service location</strong><p class="muted small">Drag the pin or use your current location.</p></div><button type="button" id="locate" class="outline-button">⌖ Use my location</button></div>
+            <div id="map"></div>
+            <input id="latitude" type="hidden"><input id="longitude" type="hidden">
+            <button class="primary-button" type="submit">Find verified workers <span>→</span></button>
+          </div>
+          <aside class="trust-panel"><div class="trust-icon">✓</div><h3>A cooperative-owned service</h3><p>Your request goes first to verified workers from nearby Labour Cooperative Societies.</p><div class="trust-line"><span>01</span><p>Verified identity and skill profile</p></div><div class="trust-line"><span>02</span><p>Fair wage shown before booking</p></div><div class="trust-line"><span>03</span><p>Worker welfare and insurance supported</p></div><div class="live-location-card"><div><strong>Live location</strong><p>Update this map with your current position.</p></div><button id="open-google-maps" type="button" aria-label="Show current location">↗</button></div><div class="live-map-container"><div class="live-map-label">LOCATION MAP <span id="live-map-status">Hyderabad preview</span></div><iframe id="live-location-map" title="Live location map" src="https://www.google.com/maps?q=17.385,78.4867&output=embed" loading="lazy"></iframe></div></aside>
+        </form>
+      </section>
+
+      <section id="matches-screen" class="screen"><div class="intro"><div><p class="eyebrow">NEARBY COOPERATIVE WORKERS</p><h2>Choose who should help</h2><p class="muted" id="request-summary">Your request details will appear here.</p></div><button class="outline-button" data-screen="request">← Edit request</button></div><div class="match-layout"><div id="worker-list" class="worker-list"></div><div class="booking-panel"><div class="booking-map-heading"><strong>Booking location</strong><button type="button" id="booking-locate" class="outline-button">⌖ Use my location</button></div><div class="mini-map" id="match-map"></div><div class="address-card"><span class="pin">⌖</span><div><small>SERVICE LOCATION</small><strong id="selected-address">Your address</strong><span id="selected-time">Date and time</span></div></div><div class="approver-card"><span class="person-icon">◉</span><div><small>ON-SITE APPROVER</small><strong id="selected-approver">Contact person</strong><span>Will receive arrival updates</span></div></div></div></div></section>
+
+      <section id="bookings-screen" class="screen"><div class="intro"><div><p class="eyebrow">YOUR SERVICE JOURNEY</p><h2>My bookings</h2><p class="muted">Track requests, arrivals, and completed services.</p></div><button class="primary-button compact new-request-button" data-screen="request" title="Create a new service request"><span class="new-request-icon" aria-hidden="true">＋</span><span>New request</span></button></div><div id="booking-list" class="booking-list"><div class="empty-state"><span>◷</span><h3>No bookings yet</h3><p>Start with a service request and your confirmed jobs will appear here.</p></div></div></section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <div id="yoyo-widget" class="yoyo-widget">
+    <button id="yoyo-launcher" class="yoyo-launcher" type="button" aria-label="Open YOYO assistant"><span class="yoyo-bee" aria-hidden="true"><span class="yoyo-wing yoyo-wing-left"></span><span class="yoyo-wing yoyo-wing-right"></span><span class="yoyo-bee-body"></span></span></button>
+    <aside id="yoyo-panel" class="yoyo-panel" aria-label="YOYO assistant" aria-hidden="true">
+      <div class="yoyo-header"><div><strong>YOYO</strong><small>Your CONNECTX assistant</small></div><button id="yoyo-close" type="button" aria-label="Close YOYO">×</button></div>
+      <div id="yoyo-messages" class="yoyo-messages"></div>
+      <div class="yoyo-prompts"><button type="button" data-yoyo-prompt="How do I book a service?">How do I book?</button><button type="button" data-yoyo-prompt="How do I share my location?">Share location</button></div>
+      <form id="yoyo-form" class="yoyo-form"><input id="yoyo-input" required placeholder="Ask YOYO anything"><button type="submit" aria-label="Send message">↑</button></form>
+    </aside>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js?v=2"></script>
+</body>
+</html>

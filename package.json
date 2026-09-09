@@ -1,0 +1,10 @@
+{
+  "name": "restaurant-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Restaurant website starter structure",
+  "scripts": {
+    "dev": "echo \"Choose a frontend framework, then replace this script.\"",
+    "build": "echo \"Choose a frontend framework, then replace this script.\""
+  }
+}

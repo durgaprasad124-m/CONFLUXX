@@ -1,0 +1,1 @@
+.brand-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.home-button{display:grid;place-items:center;width:32px;height:32px;border:1px solid #477762;border-radius:9px;background:#1b4c3a;color:#d7f28a;font-size:18px;line-height:1;cursor:pointer}.home-button:hover{background:#d7f28a;color:#103b2e}.brand-row .brand{min-width:0}
